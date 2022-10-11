@@ -16,7 +16,7 @@ const mandelbrot = require("@frctl/mandelbrot");
 
 const dir = {
   src: "src",
-  docs: "docs",
+  dist: "dist",
 };
 
 // watch: 更新ファイルの監視
@@ -34,7 +34,7 @@ gulp.task("watch", () => {
 // ==========================================================================
 
 gulp.task("clean", (done) => {
-  rimraf(dir.docs, done);
+  rimraf(dir.dist, done);
 });
 
 // copy: スタティックファイルのコピー
@@ -45,7 +45,7 @@ gulp.task("copy", (done) => {
     .src(`${dir.src}/**/*`, { base: dir.src })
     .pipe(plumber())
     .pipe(cache("copy"))
-    .pipe(gulp.dest(dir.docs));
+    .pipe(gulp.dest(dir.dist));
   // done();
 });
 
@@ -69,7 +69,7 @@ gulp.task("scss", (done) => {
         path.dirname = path.dirname.replace("scss", "css");
       })
     )
-    .pipe(gulp.dest(dir.docs));
+    .pipe(gulp.dest(dir.dist));
   // done();
 });
 
@@ -78,7 +78,7 @@ gulp.task("scss", (done) => {
 
 gulp.task("server", (done) => {
   browserSync.init({
-    server: { baseDir: dir.docs },
+    server: { baseDir: dir.dist },
   });
   done();
 });
